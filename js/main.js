@@ -365,84 +365,58 @@ function lerp(a, b, t) { return a + (b - a) * t; }
 
   const TREE = {
     start: {
-      msg: "G'day! 👋 I'm the ADC support bot. How can I help you today?",
+      msg: `G'day. I'm the ReadyStack assistant. What do you need help with?`,
       opts: [
-        { label: '💰 Pricing & Plans',    next: 'pricing'    },
-        { label: '🛡️ Cybersecurity',       next: 'security'   },
-        { label: '☁️ Cloud Migration',     next: 'cloud'      },
-        { label: '🤖 AI Automation',       next: 'ai'         },
-        { label: '📋 Free Digital Audit',  next: 'audit'      },
-        { label: '📞 Contact a Human',     next: 'contact'    },
+        { label: 'Online presence setup', next: 'presence' },
+        { label: 'Cybersecurity', next: 'cyber' },
+        { label: 'Website design & hosting', next: 'website' },
+        { label: 'Managed IT support', next: 'it' },
+        { label: 'Email & domain setup', next: 'email' },
+        { label: 'Website maintenance', next: 'maintenance' },
+        { label: 'Request a quote', next: 'quote' },
       ],
     },
-    pricing: {
-      msg: "We have three plans:\n\n• **The Base** — $299/mo (online presence, email, website)\n• **The Fort** — $799/mo (+ 24/7 monitoring, ACSC E8, cloud)\n• **Command Centre** — $1,799/mo (+ AI workflow, dedicated AM)\n\nAll month-to-month, no lock-in.",
-      opts: [
-        { label: 'Tell me about The Fort',         next: 'fort'    },
-        { label: 'Tell me about Command Centre',   next: 'command' },
-        { label: 'I want a custom quote',          next: 'audit'   },
-        { label: '← Back',                        next: 'start'   },
-      ],
+    presence: {
+      msg: `**Online Presence** is for businesses that need the essentials set up properly: domain, business email, secured website and social profile basics.`,
+      opts: [{ label: 'Open Online Presence page', next: '_online_presence' }, { label: 'Request quote', next: 'quote' }, { label: 'Back', next: 'start' }],
     },
-    fort: {
-      msg: "**The Fort** at $799/mo is our most popular plan for established SMBs. It includes:\n\n✓ 24/7 endpoint monitoring (up to 10 devices)\n✓ ACSC Essential Eight implementation\n✓ Cloud migration to AU-hosted infrastructure\n✓ Immutable daily backups\n✓ 4-hour helpdesk SLA\n✓ Monthly IT health reports",
-      opts: [
-        { label: 'Get started with The Fort', next: 'audit'   },
-        { label: '← Back to pricing',         next: 'pricing' },
-      ],
+    cyber: {
+      msg: `**ACSC Cybersecurity** adds practical protection across your website, email, domain and business access: MFA guidance, email security records, SSL, backups and access controls.`,
+      opts: [{ label: 'Open Cybersecurity page', next: '_acsc_cybersecurity' }, { label: 'Request security review', next: 'quote' }, { label: 'Back', next: 'start' }],
     },
-    command: {
-      msg: "**Command Centre** at $1,799/mo is for growth-stage businesses. On top of The Fort, you get:\n\n✓ 1 custom AI workflow (built for your business)\n✓ Full ACSC E8 Level 2 assessment\n✓ Dedicated account manager\n✓ Monthly strategy sessions\n✓ Privacy Act compliance check\n✓ SD-WAN networking",
-      opts: [
-        { label: 'I want Command Centre',   next: 'audit'   },
-        { label: '← Back to pricing',      next: 'pricing' },
-      ],
+    website: {
+      msg: `**Website Design, Build & Hosting** covers 1–3 page starter websites, custom design requests, secure hosting, SSL and domain connection. A frontend landing page can be delivered in around 3 days when assets are ready.`,
+      opts: [{ label: 'Open Website page', next: '_website_design_build_hosting' }, { label: 'Request website quote', next: 'quote' }, { label: 'Back', next: 'start' }],
     },
-    security: {
-      msg: "Security is our core. Every ADC client gets ACSC Essential Eight implementation:\n\n🔒 Multi-factor authentication\n🔒 Application control & hardening\n🔒 Patch management (apps + OS)\n🔒 Immutable backups\n🔒 24/7 EDR monitoring\n\nCommand Centre clients get a full Maturity Level 2 assessment.",
-      opts: [
-        { label: 'What is ACSC Essential Eight?', next: 'acsc'  },
-        { label: 'Get a security audit',          next: 'audit' },
-        { label: '← Back',                       next: 'start' },
-      ],
+    it: {
+      msg: `**Managed IT Support** is for small businesses that need help with devices, access, email, network issues and on-site service requests.`,
+      opts: [{ label: 'Open Managed IT page', next: '_managed_it' }, { label: 'Book IT support call', next: 'quote' }, { label: 'Back', next: 'start' }],
     },
-    acsc: {
-      msg: "The ACSC Essential Eight is the Australian government's baseline cybersecurity framework — eight prioritised strategies to mitigate the most common cyber attacks.\n\nIt's not optional for businesses handling sensitive data. ADC implements it for every client as standard.",
-      opts: [
-        { label: 'Book a free security audit', next: 'audit'    },
-        { label: '← Back to security',        next: 'security' },
-      ],
+    email: {
+      msg: `**Email & Domain Setup** gives your business professional email on your own domain. Google Workspace is usually best for small businesses, with Microsoft 365 available if preferred. DNS setup is included; old email migration is not included in the standard setup.`,
+      opts: [{ label: 'Open Email & Domain page', next: '_email_domain_setup' }, { label: 'Set up business email', next: 'quote' }, { label: 'Back', next: 'start' }],
     },
-    cloud: {
-      msg: "All ADC cloud migrations land on **100% Australian infrastructure**:\n\n☁️ Azure Australia East (Sydney)\n☁️ AWS ap-southeast-2 (Sydney)\n\nYour data never leaves Australian soil. We handle the full migration — lift-and-shift or full re-architecture.",
-      opts: [
-        { label: 'Start a cloud migration',  next: 'audit' },
-        { label: '← Back',                  next: 'start' },
-      ],
+    maintenance: {
+      msg: `**Website Updates & Maintenance** is monthly support for updates, catalogue/product changes, uptime monitoring, SSL checks and practical website care after launch.`,
+      opts: [{ label: 'Open Maintenance page', next: '_website_updates_maintenance' }, { label: 'Ask about monthly support', next: 'quote' }, { label: 'Back', next: 'start' }],
     },
-    ai: {
-      msg: "Our **Command Centre** plan includes one custom AI workflow built specifically for your business.\n\nPast builds include:\n• Automated invoice processing\n• Customer triage & routing\n• Compliance report generation\n• Inventory & supplier automation\n\nWe scope, build, and maintain it.",
-      opts: [
-        { label: 'Tell me about Command Centre', next: 'command' },
-        { label: 'Book a discovery call',        next: 'audit'   },
-        { label: '← Back',                      next: 'start'   },
-      ],
-    },
-    audit: {
-      msg: "A **free Digital Health Audit** is the best first step — 30 minutes, no obligation.\n\nYou'll get a scored report on your current infrastructure, security posture, and compliance gaps.\n\nUse the contact form on this page or email us at hello@australiandigitalcentre.com.au",
-      opts: [
-        { label: '📩 Open contact form', next: '_form'  },
-        { label: '← Back',              next: 'start'  },
-      ],
-    },
-    contact: {
-      msg: "To speak with a human:\n\n📧 hello@australiandigitalcentre.com.au\n📍 Melbourne, VIC\n🕐 Mon–Fri, 8:30am–5:30pm AEST\n\nFor existing clients: 24/7 monitoring is always on.",
-      opts: [
-        { label: '📩 Send us a message', next: '_form' },
-        { label: '← Back',              next: 'start' },
-      ],
+    quote: {
+      msg: `Send a short message with what you need. We'll recommend the right ReadyStack service path.`,
+      opts: [{ label: 'Open contact form', next: '_form' }, { label: 'View services', next: '_services' }, { label: 'Back', next: 'start' }],
     },
   };
+
+  function isServicePage() {
+    return /\/(online-presence|acsc-cybersecurity|website-design-build-hosting|managed-it|email-domain-setup|website-updates-maintenance|website-design|website-redesign|email-setup|website-maintenance)\/index\.html$/.test(window.location.pathname);
+  }
+
+  function pagePath(path) {
+    return (isServicePage() ? '../' : '') + path;
+  }
+
+  function homeHash(id) {
+    return isServicePage() ? `../index.html#${id}` : `#${id}`;
+  }
 
   /* ── Open / close ── */
   function openChat() {
@@ -511,7 +485,29 @@ function lerp(a, b, t) { return a + (b - a) * t; }
         // Special actions
         if (opt.next === '_form') {
           closeChat();
-          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+          const contact = document.getElementById('contact');
+          if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+          else window.location.href = homeHash('contact');
+          return;
+        }
+
+        const serviceRoutes = {
+          _online_presence: 'online-presence/index.html',
+          _acsc_cybersecurity: 'acsc-cybersecurity/index.html',
+          _website_design_build_hosting: 'website-design-build-hosting/index.html',
+          _managed_it: 'managed-it/index.html',
+          _email_domain_setup: 'email-domain-setup/index.html',
+          _website_updates_maintenance: 'website-updates-maintenance/index.html',
+        };
+        if (serviceRoutes[opt.next]) {
+          window.location.href = pagePath(serviceRoutes[opt.next]);
+          return;
+        }
+        if (opt.next === '_services') {
+          closeChat();
+          const services = document.getElementById('services');
+          if (services) services.scrollIntoView({ behavior: 'smooth' });
+          else window.location.href = homeHash('services');
           return;
         }
 
@@ -577,4 +573,30 @@ function lerp(a, b, t) { return a + (b - a) * t; }
       child.style.setProperty('--i', i);
     });
   });
+})();
+
+/* ─── Date/Time & Weather ─────────────────────────── */
+(function initHeroDateTime() {
+  const dateEl = document.getElementById('live-date');
+  const timeEl = document.getElementById('live-time');
+
+  if (!dateEl || !timeEl) return;
+
+  function update() {
+    const now = new Date();
+
+    dateEl.textContent = now.toLocaleDateString('en-AU', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short'
+    });
+
+    timeEl.textContent = now.toLocaleTimeString('en-AU', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  update();
+  setInterval(update, 1000);
 })();

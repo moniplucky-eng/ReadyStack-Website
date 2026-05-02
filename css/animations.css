@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    animations.css  —  Scroll reveal · Entrances · Motion system
-   Australia Digital Centre  ·  Kinetic Dashboard theme
+   ReadyStack  ·  Website-first operations theme
 ═══════════════════════════════════════════════════════════ */
 
 /* ─── Scroll Reveal ──────────────────────────────────────── */
@@ -170,7 +170,8 @@ body.loaded .dash-score-panel {
   animation: panel-in .5s var(--ease-out) .9s both;
 }
 
-body.loaded .dash-endpoints-panel {
+body.loaded .dash-endpoints-panel,
+body.loaded .dash-operate-panel {
   animation: panel-in .5s var(--ease-out) 1.0s both;
 }
 

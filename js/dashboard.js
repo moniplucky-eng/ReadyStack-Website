@@ -562,11 +562,11 @@
 
   function render() {
     feed.innerHTML = shown.map(a => `
-      <div class="alert-item">
-        <span class="alert-dot" style="background:${COLOR[a.type]}"></span>
-        <span class="alert-msg">${ICON[a.type]} ${a.msg}</span>
-        <span class="alert-time">${a.time}</span>
-      </div>
+     <div class="alert-item alert-${a.type}">
+      <span class="alert-dot" style="background:${COLOR[a.type]}; box-shadow: 0 0 8px ${COLOR[a.type]}"></span>
+      <span class="alert-msg" style="color:${COLOR[a.type]}">${ICON[a.type]} ${a.msg}</span>
+      <span class="alert-time">${a.time}</span>
+     </div>
     `).join('');
   }
 

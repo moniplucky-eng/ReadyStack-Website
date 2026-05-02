@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    components.css  —  Every visual component & UI element
-   Australia Digital Centre  ·  Kinetic Dashboard theme
+   ReadyStack  ·  Website-first operations theme
 ═══════════════════════════════════════════════════════════ */
 
 /* ─── Buttons ────────────────────────────────────────────── */
@@ -149,7 +149,11 @@
   color: var(--charcoal-900);
 }
 
-.headline-amber  { color: var(--amber); display: block; }
+.headline-amber {
+  color: var(--amber);
+  display: block;
+}
+
 .headline-outline {
   display: block;
   color: transparent;
@@ -161,6 +165,51 @@
   color: var(--charcoal-500);
   line-height: 1.6;
   max-width: 44ch;
+}
+
+/* Right: hero video visual */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 520px;
+  transform: translateY(-76px);
+}
+
+.hero-robot {
+  position: relative;
+  width: min(460px, 38vw);
+  height: 420px;
+  border-radius: 30px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow:
+    0 24px 70px rgba(24, 29, 38, 0.10),
+    0 8px 24px rgba(24, 29, 38, 0.06);
+}
+
+/* Soft edge blend */
+.hero-robot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      120% 90% at 50% 50%,
+      rgba(255,255,255,0) 58%,
+      rgba(255,255,255,0.28) 100%
+    );
+  pointer-events: none;
+}
+
+/* Video */
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transform: scale(1.08) translateY(-6px);
 }
 
 /* Eyebrow pills */
@@ -207,12 +256,14 @@
 .dash-brand-mark {
   font-family: var(--font-display);
   font-weight: var(--weight-bold);
-  font-size: .65rem;
-  letter-spacing: .08em;
+  font-size: .58rem;
+  letter-spacing: .04em;
   color: var(--charcoal-900);
   background: var(--amber);
-  width: 26px;
+  width: auto;
+  min-width: 26px;
   height: 26px;
+  padding-inline: .45rem;
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -321,14 +372,14 @@
 /* Score ring */
 .score-ring-wrap {
   position: relative;
-  width: 90px;
-  height: 90px;
-  margin: var(--space-2) auto;
+  width: 110px;
+  height: 110px;
+  margin: var(--space-2) auto var(--space-1);
 }
 
 .score-ring-wrap canvas {
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .score-overlay {
@@ -339,29 +390,56 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  pointer-events: none;
 }
 
 .score-num {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: var(--weight-bold);
   color: var(--white);
-  line-height: 1;
+  line-height: .9;
+  letter-spacing: -.04em;
 }
 
 .score-denom {
   font-family: var(--font-mono);
-  font-size: .55rem;
-  color: rgba(255,255,255,.35);
+  font-size: .68rem;
+  color: rgba(255,255,255,.42);
+  margin-top: .12rem;
 }
 
 .score-label {
   font-family: var(--font-mono);
-  font-size: .6rem;
+  font-size: .62rem;
   color: var(--green);
   text-align: center;
-  letter-spacing: .06em;
+  letter-spacing: .08em;
+  text-transform: uppercase;
   margin-top: var(--space-1);
+}
+
+/* Legacy fallback if the score ring is replaced with static text */
+.score-placeholder {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 6px;
+}
+
+.score-placeholder span {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.score-placeholder small {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: rgba(255,255,255,.45);
 }
 
 /* Endpoint list */
@@ -453,7 +531,13 @@
 .alert-dot-ok   { background: var(--green); }
 .alert-dot-info { background: var(--blue);  }
 
-.alert-text { color: rgba(255,255,255,.5); flex: 1; min-width: 0; }
+.alert-text,
+.alert-msg {
+  color: rgba(255,255,255,.72);
+  flex: 1;
+  min-width: 0;
+  line-height: 1.35;
+}
 .alert-time { color: rgba(255,255,255,.2); flex-shrink: 0; }
 
 .alert-feed-header { padding: 5px var(--space-4); }
@@ -505,17 +589,48 @@
 
 /* ─── Trust strip chips ──────────────────────────────────── */
 .partner-chip {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: .45rem 1.1rem;
+  border: 1px solid var(--charcoal-200);
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,.86);
+  color: var(--charcoal-500);
   font-family: var(--font-display);
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
-  color: var(--charcoal-400);
-  white-space: nowrap;
-  transition: color var(--dur-fast);
   letter-spacing: -.01em;
-  padding: var(--space-1) var(--space-3);
-  border: 1px solid var(--charcoal-200);
-  border-radius: var(--radius-full);
-  background: var(--white);
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(24,29,38,.03);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.partner-chip:hover {
+  color: var(--charcoal-900);
+  border-color: rgba(245,158,11,.35);
+  box-shadow: 0 8px 24px rgba(24,29,38,.08);
+  transform: translateY(-1px);
+}
+
+.partner-chip img {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+  filter: none;
+  opacity: 1;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.partner-chip:hover img {
+  transform: translateY(-1px);
+  opacity: .92;
 }
 
 /* ─── About: terminal card ───────────────────────────────── */
@@ -1535,4 +1650,138 @@
 .magnetic {
   transform-style: preserve-3d;
   will-change: transform;
+}
+.compliance-dashboard {
+  position: relative;
+  width: 100%;
+}
+
+.compliance-dashboard .dashboard-frame {
+  max-width: 100%;
+}
+
+.compliance-dashboard .dash-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.compliance-dashboard .dash-score-panel,
+.compliance-dashboard .dash-endpoints-panel {
+  min-height: auto;
+}
+
+.compliance-dashboard .dash-metrics-strip {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.compliance-dashboard .dash-alert-feed {
+  max-height: 160px;
+  overflow: hidden;
+}
+
+/* Security Score + Operate Stack */
+
+.dash-body {
+  align-items: stretch;
+}
+
+/* spacing between left and right sections */
+
+.dash-score-panel,
+.dash-operate-panel {
+  min-height: 100%;
+}
+
+
+/* Status indicator dot for Operate Stack */
+
+.operate-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  opacity: 0.85;
+}
+
+/* ─── ReadyStack Operate Stack panel ─────────────────────── */
+/* Keeps Security Score and Operate Stack visually balanced in the dashboard. */
+.dash-score-panel,
+.dash-operate-panel {
+  min-height: 100%;
+}
+
+.dash-operate-panel {
+  padding: .9rem 1rem;
+}
+
+.operate-stack-mini {
+  display: grid;
+  gap: .5rem;
+  margin-top: .65rem;
+}
+
+.operate-mini-item {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .5rem .65rem;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+.operate-mini-item strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--green);
+  letter-spacing: .04em;
+  line-height: 1.1;
+}
+
+.operate-mini-item span:not(.operate-dot) {
+  display: block;
+  margin-top: .12rem;
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  color: rgba(255,255,255,.5);
+  line-height: 1.2;
+}
+
+/* Live status dot for Operate Stack items. */
+.operate-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  opacity: .85;
+  flex-shrink: 0;
+}
+
+.hero-live-strip {
+  position: absolute;
+  top: calc(var(--nav-h) + 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(28,28,30,.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 24px rgba(28,28,30,.06);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--charcoal-600);
+  white-space: nowrap;
+}
+
+.live-separator {
+  color: var(--amber);
 }
