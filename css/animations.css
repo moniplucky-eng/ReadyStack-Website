@@ -1,0 +1,426 @@
+/* ═══════════════════════════════════════════════════════════
+   animations.css  —  Scroll reveal · Entrances · Motion system
+   Australia Digital Centre  ·  Kinetic Dashboard theme
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Scroll Reveal ──────────────────────────────────────── */
+/*
+  Elements start invisible. JS adds .revealed when they
+  enter the viewport via IntersectionObserver.
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--dur-xslow) var(--ease-out),
+    transform var(--dur-xslow) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay variants */
+.reveal-delay-1 { transition-delay: 100ms; }
+.reveal-delay-2 { transition-delay: 200ms; }
+.reveal-delay-3 { transition-delay: 300ms; }
+.reveal-delay-4 { transition-delay: 400ms; }
+
+/* Direction variants */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition:
+    opacity var(--dur-xslow) var(--ease-out),
+    transform var(--dur-xslow) var(--ease-out);
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition:
+    opacity var(--dur-xslow) var(--ease-out),
+    transform var(--dur-xslow) var(--ease-out);
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(.92);
+  transition:
+    opacity var(--dur-xslow) var(--ease-out),
+    transform var(--dur-xslow) var(--ease-spring);
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Page Loader Sequence ───────────────────────────────── */
+@keyframes loader-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.loader-logo { animation: loader-fade-in .4s var(--ease-out) .1s both; }
+.loader-track { animation: loader-fade-in .4s var(--ease-out) .2s both; }
+.loader-label { animation: loader-fade-in .4s var(--ease-out) .3s both; }
+
+/* ─── Hero Entrance ──────────────────────────────────────── */
+/* These fire once on load, staggered from JS class additions */
+@keyframes hero-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) skewY(2deg);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes hero-slide-right {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes hero-scale-in {
+  from { opacity: 0; transform: scale(.88) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Hero text layers — triggered when body gets .loaded class */
+body.loaded .hero-eyebrow {
+  animation: hero-fade-up .6s var(--ease-out) .2s both;
+}
+
+body.loaded .hero-headline {
+  animation: hero-word-in .7s var(--ease-out) .35s both;
+}
+
+body.loaded .hero-sub {
+  animation: hero-fade-up .6s var(--ease-out) .55s both;
+}
+
+body.loaded .hero-ctas {
+  animation: hero-fade-up .6s var(--ease-out) .7s both;
+}
+
+body.loaded .hero-proof {
+  animation: hero-fade-up .6s var(--ease-out) .85s both;
+}
+
+body.loaded .hero-dashboard {
+  animation: hero-scale-in .8s var(--ease-spring) .5s both;
+}
+
+body.loaded .scroll-nudge {
+  animation: hero-fade-in .6s var(--ease-out) 1.4s both;
+}
+
+/* ─── Nav Entrance ───────────────────────────────────────── */
+@keyframes nav-drop {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+body.loaded #site-header {
+  animation: nav-drop .5s var(--ease-out) .1s both;
+}
+
+/* ─── Dashboard Panels ───────────────────────────────────── */
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+body.loaded .dash-topbar {
+  animation: panel-in .4s var(--ease-out) .7s both;
+}
+
+body.loaded .dash-network-panel {
+  animation: panel-in .5s var(--ease-out) .8s both;
+}
+
+body.loaded .dash-score-panel {
+  animation: panel-in .5s var(--ease-out) .9s both;
+}
+
+body.loaded .dash-endpoints-panel {
+  animation: panel-in .5s var(--ease-out) 1.0s both;
+}
+
+body.loaded .dash-metrics-strip {
+  animation: panel-in .4s var(--ease-out) 1.1s both;
+}
+
+body.loaded .dash-alert-feed {
+  animation: panel-in .4s var(--ease-out) 1.2s both;
+}
+
+/* ─── Tilt Card (3D perspective hover) ──────────────────── */
+.tilt {
+  transform-style: preserve-3d;
+  transition: transform var(--dur-base) var(--ease-out);
+  will-change: transform;
+}
+
+/* Inner content pushed forward on z-axis for depth */
+.tilt-inner {
+  transform: translateZ(20px);
+  transform-style: preserve-3d;
+}
+
+/* ─── Magnetic Button ─────────────────────────────────────── */
+.magnetic {
+  transform-origin: center;
+  will-change: transform;
+  /* JS handles the translate; CSS just smooths the return */
+  transition:
+    transform .35s var(--ease-out),
+    background var(--dur-fast),
+    box-shadow var(--dur-fast);
+}
+
+/* ─── Shimmer loading skeleton ───────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--charcoal-100) 25%,
+    var(--charcoal-50)  50%,
+    var(--charcoal-100) 75%
+  );
+  background-size: 1200px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Glowing Orb (hero background accent) ──────────────── */
+@keyframes orb-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(20px, -15px) scale(1.04); }
+  66%  { transform: translate(-15px, 10px) scale(.97); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: orb-drift 14s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: clamp(300px, 40vw, 600px);
+  height: clamp(300px, 40vw, 600px);
+  background: radial-gradient(circle, rgba(245,158,11,.08) 0%, transparent 70%);
+  top: -10%;
+  right: -5%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: clamp(200px, 25vw, 400px);
+  height: clamp(200px, 25vw, 400px);
+  background: radial-gradient(circle, rgba(59,130,246,.06) 0%, transparent 70%);
+  bottom: 10%;
+  left: -8%;
+  animation-delay: -5s;
+}
+
+/* ─── Number Counter Flash ───────────────────────────────── */
+@keyframes count-flash {
+  0%   { color: var(--amber-300); }
+  100% { color: var(--amber); }
+}
+
+.counting { animation: count-flash .1s ease-out; }
+
+/* ─── Process Connector Fill ─────────────────────────────── */
+/* Driven by JS adding .active class when section is visible */
+.connector-fill {
+  transition: width 1.4s var(--ease-out);
+}
+
+/* ─── Pulsing Node (network topology nodes) ─────────────── */
+@keyframes node-pulse {
+  0%, 100% { r: 6; opacity: .9; }
+  50%       { r: 8; opacity: 1; }
+}
+
+@keyframes node-ring {
+  0%   { r: 6; opacity: .6; stroke-width: 2; }
+  100% { r: 18; opacity: 0; stroke-width: .5; }
+}
+
+/* ─── Score Ring Draw ────────────────────────────────────── */
+@keyframes ring-draw {
+  from { stroke-dashoffset: 314; }
+  to   { stroke-dashoffset: var(--target-offset, 40); }
+}
+
+.ring-arc {
+  animation: ring-draw 1.4s var(--ease-out) .4s both;
+}
+
+/* ─── Alert slide-in (already in components, kept for ref) ─ */
+@keyframes alert-in {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Radar Chart Draw ───────────────────────────────────── */
+@keyframes radar-expand {
+  from { transform: scale(0); opacity: 0; transform-origin: center; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ─── Float badge ────────────────────────────────────────── */
+@keyframes float-up-down {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.float-badge {
+  animation: float-up-down 3.5s ease-in-out infinite;
+}
+
+.float-badge-delayed {
+  animation: float-up-down 3.5s ease-in-out 1.75s infinite;
+}
+
+/* ─── Typewriter cursor blink ────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Sparkline draw ─────────────────────────────────────── */
+@keyframes spark-draw {
+  from { stroke-dashoffset: 100; opacity: 0; }
+  to   { stroke-dashoffset: 0;   opacity: 1; }
+}
+
+.spark-path {
+  animation: spark-draw 1s var(--ease-out) .5s both;
+}
+
+/* ─── Section heading accent line ────────────────────────── */
+@keyframes line-expand {
+  from { scaleX: 0; }
+  to   { scaleX: 1; }
+}
+
+/* ─── Card border glow on hover ──────────────────────────── */
+@keyframes border-glow {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(245,158,11,.2); }
+  50%       { box-shadow: 0 0 0 4px rgba(245,158,11,.4); }
+}
+
+/* ─── Live dot pulse (hero topbar) ──────────────────────── */
+@keyframes live-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(255,68,68,.5); }
+  70%  { box-shadow: 0 0 0 7px rgba(255,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,68,68,0); }
+}
+
+/* ─── Dashboard data tick ────────────────────────────────── */
+@keyframes value-tick {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-2px); }
+  50%  { transform: translateY(0); }
+}
+
+.value-ticking {
+  animation: value-tick .25s var(--ease-out);
+}
+
+/* ─── Scroll nudge drip ──────────────────────────────────── */
+@keyframes scroll-drip {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+
+/* ─── Marquee pause on hover ─────────────────────────────── */
+.marquee-outer:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ─── Stagger children utility ───────────────────────────── */
+/*
+  Apply .stagger-children to a parent; each direct child
+  gets an auto-calculated delay based on its index.
+  JS sets --i on each child.
+*/
+.stagger-children > * {
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+/* ─── Reduced motion overrides ───────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  body.loaded .hero-eyebrow,
+  body.loaded .hero-headline,
+  body.loaded .hero-sub,
+  body.loaded .hero-ctas,
+  body.loaded .hero-proof,
+  body.loaded .hero-dashboard,
+  body.loaded .scroll-nudge,
+  body.loaded #site-header,
+  body.loaded .dash-topbar,
+  body.loaded .dash-network-panel,
+  body.loaded .dash-score-panel,
+  body.loaded .dash-endpoints-panel,
+  body.loaded .dash-metrics-strip,
+  body.loaded .dash-alert-feed {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .orb       { animation: none; }
+  .float-badge,
+  .float-badge-delayed { animation: none; }
+  .marquee-track { animation-duration: 60s; }
+
+  .magnetic {
+    transition: background var(--dur-fast), box-shadow var(--dur-fast);
+  }
+}
